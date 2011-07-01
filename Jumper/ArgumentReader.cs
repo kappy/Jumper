@@ -54,7 +54,6 @@ namespace Jumper {
             this._TryLocateSwitch("-help", CommandTypes.Help);
             this._TryLocateSwitch("-remove", CommandTypes.Remove);
             this._TryLocateSwitch("-add", CommandTypes.Add);
-            this._TryLocateSwitch("-help", CommandTypes.Add);
             
             //check to see if this might just be a command to execute
             if (this._CommandType != CommandTypes.Undefined) return;
