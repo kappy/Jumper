@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using Jumper.Functions;
 
 namespace Jumper {
 
@@ -27,6 +28,10 @@ namespace Jumper {
             get { return !string.IsNullOrEmpty(this.ArgumentPrefix); }
         }
 
+        public bool IncludeFunction {
+            get { return this.Command.Contains("#"); }
+        }
+
         #endregion
 
         #region Methods
@@ -42,10 +47,14 @@ namespace Jumper {
 
         //creates the command to run from the batch file
         public string BuildCommand(string[] args) {
-            if (!this.IncludeArguments) return this.Command;
+            var command = _AssignArgumentValues(this.Command, args);
+            return _EvaluateFunctions(command);
+        }
+
+        private string _AssignArgumentValues(string command, string[] args) {
+            if (!this.IncludeArguments) return command;
 
             //replace arguments as required
-            string command = this.Command;
             for (int i = 0; i < args.Length; i++) {
                 string key = string.Concat(this.ArgumentPrefix, i);
                 string value = args[i];
@@ -56,8 +65,11 @@ namespace Jumper {
             return command;
         }
 
+        private string _EvaluateFunctions(string command) {
+            var parser = new FunctionParser(command);
+            return parser.Parse();
+        }
         #endregion
-
     }
 
 }

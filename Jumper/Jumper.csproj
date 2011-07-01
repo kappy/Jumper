@@ -44,6 +44,10 @@
     <Compile Include="Command.cs" />
     <Compile Include="CommandLocator.cs" />
     <Compile Include="CommandTypes.cs" />
+    <Compile Include="Functions\FunctionBuilder.cs" />
+    <Compile Include="Functions\FunctionCompiler.cs" />
+    <Compile Include="Functions\FunctionException.cs" />
+    <Compile Include="Functions\FunctionParser.cs" />
     <Compile Include="HelpCommand.cs" />
     <Compile Include="JumperCommand.cs" />
     <Compile Include="JumperSettings.cs" />
