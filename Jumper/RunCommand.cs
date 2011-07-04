@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
+using Jumper.Functions;
 
 namespace Jumper {
 
@@ -28,7 +29,9 @@ namespace Jumper {
             }
 
             //build the actual string to execute 
-            string execute = command.BuildCommand(parts);
+            var commandToExecute = command.BuildCommand(parts);
+            var parser = new FunctionParser(commandToExecute, Settings);
+            string execute = parser.Parse();
 
             //create the BAT to run
             var builder = new StringBuilder();

@@ -9,9 +9,9 @@ namespace Jumper.Functions {
 		private string _Command;
 		private FunctionCompiler _Compiler;
 
-		public FunctionParser(string command) {
+		public FunctionParser(string command, JumperSettings settings) {
 			this._Command = command;
-			this._Compiler = new FunctionCompiler();
+			this._Compiler = new FunctionCompiler(settings);
 		}
 
 		//Parse the command from the end to start searching for function

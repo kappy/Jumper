@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Jumper.Functions;
 
 namespace Jumper {
 
@@ -21,6 +22,9 @@ namespace Jumper {
             return this._Reader.CommandType == CommandTypes.List ? this.ActivateCommand<ListCommand>()
                 : this._Reader.CommandType == CommandTypes.Add ? this.ActivateCommand<AddCommand>()
                 : this._Reader.CommandType == CommandTypes.Remove ? this.ActivateCommand<RemoveCommand>()
+                : this._Reader.CommandType == CommandTypes.ListFunctions ? this.ActivateCommand<ListFunctionsCommand>()
+                : this._Reader.CommandType == CommandTypes.AddFunction ? this.ActivateCommand<AddFunctionCommand>()
+                : this._Reader.CommandType == CommandTypes.RemoveFunction ? this.ActivateCommand<RemoveFunctionCommand>()
                 : this._Reader.CommandType == CommandTypes.Help ? this.ActivateCommand<HelpCommand>()
                 : this._Reader.CommandType == CommandTypes.Run ? this.ActivateCommand<RunCommand>()
                 : this.ActivateCommand<UnknownCommand>();

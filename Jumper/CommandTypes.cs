@@ -12,6 +12,9 @@ namespace Jumper {
         Remove,
         Run,
         Help,
+		AddFunction,
+		RemoveFunction,
+		ListFunctions,
         Undefined,
         TooManyCommands
     }

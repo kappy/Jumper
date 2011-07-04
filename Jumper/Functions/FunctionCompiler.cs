@@ -6,22 +6,25 @@ using System.Linq.Expressions;
 
 namespace Jumper.Functions {
 	public class FunctionCompiler {
-		
-		public FunctionCompiler() {
+
+		private JumperSettings _Settings;
+
+		public FunctionCompiler(JumperSettings settings) {
+			this._Settings = settings;
 		}
 
 		public string Evaluate(string name, string[] args) {
 			Delegate func = null;
-			switch (name) {
-				case "FullFileName":
-					func = _BuildDelegate("System.IO.Path", "GetFullPath");
-					break;
-				case "GetFileName":
-					func = _BuildDelegate("System.IO.Path", "GetFileName");
-					break;
-			}
-			if(func == null)
+			
+			if (!_Settings.HasFunction(name))
 				throw new FunctionException(string.Format("Function not found: {0}"));
+
+			try {
+				Function function = _Settings.GetFunctionByName(name);
+				func = _BuildDelegate(function.Class, function.Name);
+			} catch (Exception ex) {
+				throw new FunctionException(string.Format("Error building the function '{0}': {1}", name, ex.Message, ex));
+			}
 
 			try {
 				object o = func.DynamicInvoke(args);

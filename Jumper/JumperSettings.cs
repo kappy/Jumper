@@ -5,6 +5,7 @@ using System.Text;
 using System.Reflection;
 using System.IO;
 using System.Xml.Serialization;
+using Jumper.Functions;
 
 namespace Jumper {
 
@@ -28,6 +29,7 @@ DEL ""%~dp0__JUMPER_EXECUTE.BAT""
 
         public JumperSettings() {
             this.Commands = new List<JumperCommand>();
+            this.Functions = new List<Function>();
         }
 
         #endregion
@@ -36,6 +38,8 @@ DEL ""%~dp0__JUMPER_EXECUTE.BAT""
 
         //the list of commands being used
         public List<JumperCommand> Commands { get; set; }
+        //the list of registered functions
+        public List<Function> Functions { get; set; }
 
         #endregion
 
@@ -69,7 +73,7 @@ DEL ""%~dp0__JUMPER_EXECUTE.BAT""
 
         #endregion
 
-        #region Methods
+        #region Command Methods
 
         //gets the first commnd matching the name provided
         public JumperCommand GetCommandByName(string name) {
@@ -90,6 +94,31 @@ DEL ""%~dp0__JUMPER_EXECUTE.BAT""
         //drops a command
         public void RemoveCommand(string name) {
             this.Commands.RemoveAll(item => item.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
+        }
+
+        #endregion
+
+        #region Functions Methods
+
+        //gets the first commnd matching the name provided
+        public Function GetFunctionByName(string name) {
+            return this.Functions.FirstOrDefault(item => item.Alias.Equals(name, StringComparison.OrdinalIgnoreCase));
+        }
+
+        //checks if a command name exists or not
+        public bool HasFunction(string name) {
+            return this.GetFunctionByName(name) is Function;
+        }
+
+        //includes a new command
+        public void AddFunction(Function function) {
+            this.RemoveFunction(function.Alias);
+            this.Functions.Add(function);
+        }
+
+        //drops a command
+        public void RemoveFunction(string name) {
+            this.Functions.RemoveAll(item => item.Alias.Equals(name, StringComparison.OrdinalIgnoreCase));
         }
 
         #endregion
