@@ -17,7 +17,7 @@ namespace Jumper.Functions {
 			Delegate func = null;
 			
 			if (!_Settings.HasFunction(name))
-				throw new FunctionException(string.Format("Function not found: {0}"));
+				throw new FunctionException(string.Format("Function not found: {0}", name));
 
 			try {
 				Function function = _Settings.GetFunctionByName(name);
