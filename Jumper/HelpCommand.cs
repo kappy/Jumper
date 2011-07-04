@@ -24,7 +24,7 @@ Add / Update Command
    Adds a new command. The command to execute should ALWAYS be the last 
    parameter on the list.
 
-Add Options
+ Add Options
   -quiet:true|false
    Sets ECHO OFF for the command (default is true)
 
@@ -47,6 +47,24 @@ Remove Command
 Displaying Commands
    -list
     Shows all commands and the total number of arguments it expects
+
+
+Add / Update Function
+    -addFunction:functionName Full.Qualified.TypeName
+    Registers a new function (Macro) to be allowed to be used
+
+ Add Options
+    -alaias:<any string value>
+    When this option is specified, the function name is refered by the alaias instead
+    the function name
+
+Remove Function
+   -removeFunction:functionName
+    Deletes a function entirely
+
+Displaying Functions
+   -listFunctions
+    Shows all functions registered
 
 ");
             
